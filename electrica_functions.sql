@@ -51,16 +51,11 @@ $$ LANGUAGE plpgsql;
 
 -- Función para verificar disponibilidad de una patineta
 CREATE OR REPLACE FUNCTION verificar_disponibilidad_patineta(p_patineta_id INT)
-RETURNS BOOLEAN AS $$
+RETURNS VARCHAR(20) AS $$
 DECLARE
-	disponible BOOLEAN;
+	VARCHAR disponibilidad;
 BEGIN
-	SELECT NOT EXISTS (
-		SELECT 1
-		FROM alquileres a
-		WHERE a.patineta_id = p_patineta_id
-		AND a.fecha_hora_fin IS NULL
-	) INTO disponible;
+	SELECT
 
 	RETURN disponible;
 END;
